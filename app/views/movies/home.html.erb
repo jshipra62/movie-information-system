@@ -1,0 +1,45 @@
+<div id="poster" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <%= image_tag("fantastic.jpg" , alt: "S1", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("spiderman.jpg" , alt: "S2", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("aquaman.png" , alt: "S2", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("zero.jpg" , alt: "S2", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("2.0.jpg" , alt: "S3", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("kedarnath.jpeg" , alt: "S4", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("ralph.jpg" , alt: "S5", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("bohemian.jpg" , alt: "S6", class: "img-fluid") %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag("toh.jpg" , alt: "S7", class: "img-fluid") %>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#poster" data-slide="prev"></a>
+  <a class="carousel-control-next" href="#poster" data-slide="next"></a>
+</div>
+    
+<%= link_to 'View All', movies_path, class: "btn btn-primary " %> 
+
+<div class ="row">
+  <% @movies.each do |movie| %>
+    <div class= "col-md-4 my-4">
+      <%= link_to (image_tag movie.image.url, class: "rounded card-img-top", style: "height: 300px"), movie_path(movie) %>
+    </div>
+  <% end %> 
+</div>
+ 
+

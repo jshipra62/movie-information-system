@@ -1,0 +1,32 @@
+<%= link_to 'Back', movies_path, class: "d-block" %>
+
+<h3 class="text-center">Review Details:</h3>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Review-ID</th>
+      <th>Movie</th>
+      <th>User</th>
+      <th>Rating</th>
+      <th>Comment</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= review.id %></td>
+        <td><%= link_to review.movie.title, review %></td>
+        <td><%= review.user.name %></td>
+        <td><%= review.rating %></td>
+        <td><%= review.comment %></td>
+        <td><%= link_to 'Delete Review', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+

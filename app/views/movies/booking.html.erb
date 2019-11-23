@@ -1,0 +1,35 @@
+<%= link_to 'Back', movie_path(@movie)  %>
+<div class="border  rounded p-3">
+  <h3 class="text-center">Show Schedules of <%= @movie.title %></h3>
+  <% @edate = @movie.rdate + 56 %>
+  <% if @movie.rdate > DateTime.now.to_date %>
+    <h4 class="text-center">The booking for this movie has not yet started!</h4>
+  <% else %>
+    <% if @edate <= DateTime.now.to_date %>
+    <h2>The movie is no longer playing in theaters!</h2>
+    <% else %>
+      <% if @movie.shows.present? %>
+        <% (DateTime.now.to_date + 1 .. @edate).each do |d| %>
+          <div class="border m-2 rounded p-3">
+            <h4><%= d.to_s(:long) %></h4>
+            <% @movie.shows.each do |s| %>
+              <div>
+                <h5 class="d-inline-block"><%= link_to s.theater.name, theater_path(s.theater.id) %>: </h5>
+                <% s.slots.each do |t| %>
+                  <% if t.remaining_seat(d, s.theater.seats ) > 0 %>              
+                    <%= link_to t.time.strftime("%I:%M %p"), new_book_path(theater_id: s.theater.id, movie_id: @movie.id, show_id: s.id, slot_id: t.id, bdate: d, user_id: current_user.id), class: "btn btn-success m-2 d-inline-block"%>
+                  <% else %>
+                    <span class= "m-2 d-inline-block"> House full for <%= t.time.strftime("%I:%M %p") %> show</span>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <h4 class="text-center"> Sorry! There is currently no show for this movie...</h4>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+

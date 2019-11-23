@@ -1,0 +1,25 @@
+<%= link_to 'Back', movies_path %>
+<h3 class="text-center">User Details:</h3>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>User-ID</th>
+      <th>Name</th>
+      <th>Email-ID</th>
+      <th colspan="1"</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= link_to user.name, user %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'Delete User', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

@@ -1,0 +1,60 @@
+<fieldset class="search-field mb-4">
+  <%= search_form_for @search do |f| %>
+    <div class="form-group d-inline-block mr-4">
+      <%= f.text_field :title_cont, placeholder:"Search Movie:", class:'form-control' %>
+    </div>
+
+    <div class="field d-inline-block mr-4">
+      <%= f.label "Language:" %>
+      <%= f.collection_check_boxes :languages_id_in_any, Language.all, :id, :language do |b| %>
+        <div class="collection-check-box d-inline-block mx-2">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="actions d-inline-block">
+      <%= f.submit "Search" ,  :class => "btn btn-primary"%>
+    </div>
+  <% end %>
+</fieldset>
+
+<% @l = 0 %>
+
+<h1 class=" text-center text-secondary"> Now Showing: </h1>
+
+<div class ="row mb-4">    
+  <% @movies.each do |movie| %>
+    <% @edate = movie.rdate + 56 %>
+    <% if movie.rdate <= DateTime.now.to_date && @edate >= DateTime.now.to_date %>
+      <% @l = @l + 1 %>
+      <div class= "col-md-4 my-3 ">
+        <%= link_to (image_tag movie.image.url, class: "rounded card-img-top", style: "height: 300px"), movie_path(movie) %>
+      </div>
+    <% end %> 
+  <% end %> 
+  <% if @l == 0 %> 
+    <h4 class= "text-center text-muted"> No movies showing right now... </h4>
+  <% end %>
+</div>
+
+<% @k = 0 %>
+
+<h1 class= "text-center text-secondary"> Upcoming Movies: </h1>
+
+<div class ="row mt-2">
+  <% @movies.each do |movie| %>
+    <% if movie.rdate > DateTime.now.to_date %>
+      <% @k = @k + 1 %>
+      <div class= "col-sm-4 my-4">
+        <%= link_to (image_tag movie.image.url, class: "rounded card-img-top", style: "height: 300px"), movie_path(movie) %>
+      </div>
+    <% end %>       
+  <% end %>
+  <% if @k == 0 %> 
+    <h4 class= "text-center text-muted"> No upcoming movies for now... </h4>
+  <% end %>
+</div>
+ 
+

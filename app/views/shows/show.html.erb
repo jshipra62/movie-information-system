@@ -1,0 +1,23 @@
+<div class="reviews card px-3 pt-2 mx-auto bg-light" style="width: 30rem">
+  <div class="reviews card-body">
+    <h3 class="card-title text-center"> Show details: </h3>
+    <p>
+      <strong>Movie:</strong>
+      <%= @show.movie.title %>
+    </p>
+
+    <p>
+      <strong>Theater:</strong>
+      <%= @show.theater.name %>
+    </p>
+    <p>
+      <strong>Slots:</strong>
+    </p>
+
+    <% @show.slots.each do |t| %>
+      <span class="d-inline-block mr-2"> <%= t.time.strftime("%I:%M %p") %> </span>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Back', shows_path %>

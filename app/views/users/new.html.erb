@@ -1,0 +1,9 @@
+<h1 class="text-center">New User</h1>
+
+<%= render 'form', user: @user %>
+
+<%= link_to 'Back', movies_path %>
+
+<% if current_user %>
+  <% controller.redirect_to movies_path %>
+<% end %>

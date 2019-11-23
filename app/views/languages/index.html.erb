@@ -1,0 +1,26 @@
+<%= link_to 'New Language', new_language_path, class: "btn btn-primary mb-4" %>
+<%= link_to 'Back', movies_path, class: "d-block" %>
+<h3 class="text-center">Languages:</h3>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Language-ID</th>
+      <th>Language Name</th>
+      <th colspan="2"</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @languages.each do |language| %>
+      <tr>
+        <td><%= language.id %></td>
+        <td><%= link_to language.language, language %></td>
+        <td><%= link_to 'Edit', edit_language_path(language) %></td>
+        <td><%= link_to 'Destroy', language, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

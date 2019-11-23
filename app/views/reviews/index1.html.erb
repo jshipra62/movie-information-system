@@ -1,0 +1,28 @@
+<%= link_to 'Back', movies_path, class: "d-block" %>
+<h3 class="text-center">Review History:</h3>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Movie</th>
+      <th>Rating</th>
+      <th>Comment</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reviews.each do |review| %>
+      <% if current_user.id != review.user_id %>
+        <% controller.redirect_to movies_path %>  
+      <% end %>
+      <tr>
+        <td><%= link_to review.movie.title, review %></td>
+        <td><%= review.rating %></td>
+        <td><%= review.comment %></td>
+        <td><%= link_to 'Edit Review', edit_review_path(review) %></td>
+        <td><%= link_to 'Delete Review', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

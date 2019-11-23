@@ -1,0 +1,38 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-primary navbar-dark p-2"> 
+  <div class="container">     
+    <%= link_to "Movie Information System", movies_path , class: "navbar-brand" %>  
+    <% if current_user %>
+      <% if current_user.admin %>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle mr-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin Action
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <%= link_to 'View and Add Theater', theaters_path,  class: "dropdown-item" %> 
+            <%= link_to 'View and Add Movie', admovies_path,  class: "dropdown-item" %> 
+            <%= link_to 'View and Add Show', shows_path,  class: "dropdown-item" %> 
+            <%= link_to 'View and Add Language', languages_path,  class: "dropdown-item" %> 
+            <%= link_to 'View Booking Details', books_path,  class: "dropdown-item" %>
+            <%= link_to 'View Review Details', reviews_path,  class: "dropdown-item" %>  
+            <%= link_to 'View Users', users_path,  class: "dropdown-item" %>
+          </div>
+        </div> 
+      <% end %>
+      <div class="dropdown ml-auto">
+        <button class="btn btn-primary dropdown-toggle " type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= "#{current_user.name.upcase}" %>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <%= link_to 'View Profile', user_path(id: current_user.id),  class: "dropdown-item" %>
+          <%= link_to 'Edit Profile', edit_user_path(id: current_user.id),  class: "dropdown-item" %>  
+          <%= link_to 'Booking History', userbooks_path(user_id: current_user.id),  class: "dropdown-item" %>
+          <%= link_to 'Review History', userreviews_path(user_id: current_user.id),  class: "dropdown-item" %>
+        </div>
+      </div>        
+      <%= link_to 'LOGOUT', logout_path, method: :delete,  class: "btn btn-danger m-1"  %>
+    <% else %>
+      <ul class="navbar-nav ml-auto">
+        <%= link_to 'LOGIN', login_path,  class: "text-white mx-4 pt-2 pb-2" %>  
+        <%= link_to 'SIGNUP', new_user_path,  class: " text-white pt-2 pb-2" %>
+      </ul>
+    <% end %>
+  </div>
+</nav>

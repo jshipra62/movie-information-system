@@ -1,0 +1,30 @@
+<h3 class="card-title text-center"><%= @theater.name %></h3>
+<% if @theater.shows.present? %>
+  <table class="table table-bordered mx-auto" style="width: 38rem">
+    <thead class="thead-dark">
+      <tr>
+        <th>Movie</th>
+        <th>Release-Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @theater.shows.each do |s| %>
+        <tr>
+          <td><%= link_to s.movie.title, movie_path(s.movie.id) %></td>
+          <td><%= s.movie.rdate.to_s(:long) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4 class="text-center"> Sorry! There is currently no movie playing in this theater...</h2>
+<% end %>
+
+
+<% if current_user %>
+  <% if current_user.admin %>
+    <%= link_to 'Back', theaters_path %>
+  <% else %>
+    <%= link_to 'Back', movies_path %>
+  <% end %>
+<% end %>

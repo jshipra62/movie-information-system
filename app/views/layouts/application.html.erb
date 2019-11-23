@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MovieInformationSystem</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+   <%= render 'layouts/header' %>
+   <div id = "pageWrapper">     
+     <div class = "container mb-4">
+       <% if notice %>
+         <%= notice %>
+       <% end %>
+       <% if alert %>
+      	 <%= alert %>
+       <% end %>
+       <%= yield %>
+     </div>
+   </div>
+   <script>
+     <%= yield(:javascript) %>
+   </script>
+   <div class= "push">
+   </div>
+   <footer class= "page-footer bg-info p-2">
+     <%= render 'layouts/footer' %>
+   </footer>
+  </body>
+</html>

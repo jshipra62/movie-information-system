@@ -1,0 +1,50 @@
+<%= form_with(model: movie, local: true, :html => {:class => "card p-3 bg-light mx-auto", :style => "width: 35rem"}) do |f| %>
+  <% if movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+      <% movie.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group m-2">
+    <%= f.text_field :title, placeholder:"Enter Movie Title:", class:'form-control' %>
+  </div>
+
+  <div class="form-group m-2">
+    <%= f.text_area :synopsis, placeholder:"Enter Movie Description:", class:'form-control' %>
+  </div>
+
+
+  <div class="form-group m-2">
+    <%= f.label :rating, "Enter PG-Rating:" %>
+    <%= f.select :rating, options_for_select(["U", "U/A", "A"]), :class => 'genForm_dropBox' %>
+  </div>
+
+  <div class="form-group m-2">
+    <%= f.label :rdate, "Enter Movie's Release Date:" %>
+    <%= f.date_select :rdate %>
+  </div>
+
+  <div class="form-group m-2">
+    <%= f.label "Add Language(s)" %>
+    <%= f.collection_check_boxes :language_ids, Language.all, :id, :language do |b| %>
+      <div class="collection-check-box">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="form-group m-2">
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="actions m-2">
+    <%= f.submit "Create Movie",  :class => "btn btn-primary" %>
+  </div>
+<% end %>

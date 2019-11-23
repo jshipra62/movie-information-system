@@ -1,0 +1,29 @@
+<%= link_to 'New Movie', new_movie_path, class: "btn btn-primary mb-4 " %>
+<%= link_to 'Back', movies_path, class: "d-block" %>
+<h3 class="text-center">Movie Details:</h3>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Movie-ID</th>
+      <th>Movie Name</th>
+      <th>Release Date</th>
+      <th colspan="2"</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie.id %></td>
+        <td><%= link_to movie.title, movie %></td>
+        <td><%= movie.rdate.to_s(:long) %></td>
+        <td><%= link_to 'Edit Movie', edit_movie_path(movie) %></td>
+        <td><%= link_to 'Delete Movie', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

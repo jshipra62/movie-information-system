@@ -1,0 +1,14 @@
+<h1 class="text-center">Editing User</h1>
+
+<% if current_user %>
+  <% if current_user.id == @user.id || current_user.admin %>
+    <%= render 'form', user: @user %>
+  <% else %>
+    <% controller.redirect_to movies_path %>  
+  <% end %>
+<% end %>
+
+
+<%= link_to 'Back', user_path(@user) %>
+
+

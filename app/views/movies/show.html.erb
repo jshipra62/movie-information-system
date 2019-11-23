@@ -1,0 +1,77 @@
+<%= link_to 'Back', movies_path %>
+<div class="card">
+  <%= image_tag(@movie.image.url, class: "card-img-top", style: "height: 450px") %>
+  <div class="card-body">
+    <div class ="row">
+      <div class= "col-md-6 ">
+        <% if @movie.reviews.blank? %>
+          <div class="star-rating" data-score= <%= @avg_review %> ></div>
+            <p>No reviews and ratings yet!</p>
+            <% if current_user %>
+              <%= link_to 'Be the first one to rate and review!', new_review_path( movie_id: @movie.id, user_id: current_user.id), class: "d-block" %>
+            <% end %>
+          <% else %>
+            <div class= "star-rating" data-score= <%= @avg_review %> > </div>
+            <p class="d-inline">Average Rating: <%= @avg_review %> </p>
+            <%= link_to 'User reviews', ratings_movie_path(id: @movie.id), class: "d-block" %>
+            <% if current_user %>
+              <% @movie.reviews.each do |rev| %>
+              <% if rev.check(rev.user_id, current_user.id) == 1 %>
+                <% @k = 1 %>
+              <% else %>
+                <% @k = 0 %>
+              <% end %>
+              <% if @k == 1 %>
+                <% break %>
+              <% end %>
+            <% end %>
+            <% if @k == 0 %>
+              <%= link_to "You haven't reviewed yet. Click to review", new_review_path( movie_id: @movie.id, user_id: current_user.id), class: "d-block" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class= "col-md-6 ">
+        <%= link_to 'Book Tickets', booking_movie_path(id: @movie.id),  class: "btn btn-danger float-right p-2" %>
+      </div>
+    </div>
+    <h3 class="card-title text-center"><%= @movie.title %></h3>
+
+    <p>
+      <strong>Plot Summary:</strong>
+      <%= @movie.synopsis %>
+    </p>
+
+    <p>
+      <strong>PG-Rating:</strong>
+      <%= @movie.rating %>
+    </p>
+
+    <p>
+      <strong>Release date:</strong>
+      <%= @movie.rdate.to_s(:long) %>
+    </p>
+
+    <p>
+      <strong>Language(s):</strong>
+      <% @movie.languages.each do |s| %>
+        <span class= "m-2 d-inline-block"> <%= s.language %> </span>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+
+<% content_for(:javascript) do %>
+  $(function() {
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      }
+    });
+    $('.star-rating').raty('reload');
+  });
+<% end %>
+

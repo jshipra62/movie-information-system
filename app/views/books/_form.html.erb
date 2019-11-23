@@ -1,0 +1,48 @@
+<%= form_with(model: book, local: true, :html => {:class => "card p-3 bg-dark mx-auto", :style => "width: 38rem"}) do |form| %>
+  <% if book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+      <% book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p class="text-white h3 text-center">Booking for date: <%= @book.bdate.to_s(:long) %></p>
+
+  <div class="form-group m-2">
+    <%= form.number_field :bseat, placeholder:"Enter No. of Seats:", max: @slot.remaining_seat(params[:bdate], @theater.seats), class:'form-control' %>
+    <p class="text-white h4 my-3"> Available Seats: <%=  @slot.remaining_seat(params[:bdate], @theater.seats)  %></p>
+    <p class="text-white h4 my-3"> Ticket Price per Seat: Rs. <%= @theater.price %></p>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id %>    
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :theater_id %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :movie_id %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :show_id %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :slot_id %>
+  </div>
+
+  <div style="display: none;">
+    <%= form.label :bdate %>
+    <%= form.date_select :bdate %>
+  </div>
+
+  <div class="actions m-2">
+    <%= form.submit "Book Tickets",  :class => "btn btn-primary" %>
+  </div>
+<% end %>

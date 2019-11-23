@@ -1,0 +1,27 @@
+<%= link_to 'Back', @movie %>
+<div class="card px-3 pt-2 mx-auto" style="width: 34rem">
+  <div class="card-body">
+    <h3 class="card-title text-center">Reviews for: <%= @movie.title %></h3>
+    <% @movie.reviews.each do |review| %>
+      <div class="card px-3 my-3 pt-2">
+        <div class="star-rating" data-score= <%= review.rating %> ></div>
+        <p ><%= review.comment %></p>
+        <span><%= review.user.name %></span>
+      </div>
+    <% end %> 
+  </div> 
+</div>
+
+<% content_for(:javascript) do %>
+  $(function() {
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      }
+    });
+    $('.star-rating').raty('reload');
+  });
+<% end %>
+

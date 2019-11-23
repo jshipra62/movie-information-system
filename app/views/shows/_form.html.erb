@@ -1,0 +1,32 @@
+<%= form_with(model: show, local: true, :html=> {:class => "card p-4 bg-light mx-auto", :style => "width: 20rem"}) do |f| %>
+  <% if show.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
+
+      <ul>
+      <% show.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group mx-auto">
+    <%= f.collection_select :theater_id, Theater.order(:name), :id, :name, prompt: "Select Hall", class:' form-control' %>
+  </div>
+   
+  <div class="form-group mx-auto">
+    <%= f.collection_select :movie_id, Movie.order(:title), :id, :title, prompt: "Select Movie", class:'form-control ' %>
+  </div>
+  
+  <div class="form-group mx-auto">
+    <%= f.fields_for :slots do |ff| %>
+      <%= render partial: "slot_fields", locals: { f: ff } %> 
+    <% end %>
+    <%= link_to_add_fields 'Add Slot', f, :slots, class:"btn btn-info" %>
+  </div>
+
+  <div class="actions mx-auto">
+    <%= f.submit "Create Show", :class => "btn btn-primary "%>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<%= link_to 'New Theater', new_theater_path, class: "btn btn-primary mb-4" %>
+<%= link_to 'Back', movies_path, class: "d-block" %>
+<h3 class="text-center">Theater Details:</h3>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Theater-ID</th>
+      <th>Theater Name</th>
+      <th colspan="2"</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @theaters.each do |theater| %>
+      <tr>
+        <td><%= theater.id %></td>
+        <td><%= link_to theater.name, theater %></td>
+        <td><%= link_to 'Edit Theater', edit_theater_path(theater) %></td>
+        <td><%= link_to 'Delete Theater', theater, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
