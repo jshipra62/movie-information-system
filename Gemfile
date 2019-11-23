@@ -42,7 +42,7 @@ gem 'table_print'
 
 gem 'paperclip', '~> 5.1'
 
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap', '~> 4.3.1'
 
 gem 'link_to_add_fields'
 
