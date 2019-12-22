@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create(name: "Admin", email: "admin@kreeti.com", password: "admin123", password_confirmation: "admin123", admin: true)
-User.create(name: "Shipra", email: "shipra@kreeti.com", password: "12345", password_confirmation: "12345")
+User.create(name: "Shipra", email: "shipra@kreeti.com", password: "123456", password_confirmation: "12345")
 
 Theater.create(name: "PVR", seats: 150, price: 240)
 Theater.create(name: "Carnival Cinemas", seats: 90, price: 180)
